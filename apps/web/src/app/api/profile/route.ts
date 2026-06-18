@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { requireUser } from "@/server/services/auth-service";
-import { getOrCreateProfile, updateProfile } from "@/server/services/profile-service";
+import { requireUser } from "@/backend/services/auth-service";
+import { getOrCreateProfile, updateProfile } from "@/backend/services/profile-service";
 
 export async function GET() {
   try {

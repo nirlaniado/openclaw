@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { requireUser } from "@/server/services/auth-service";
-import { getDailySummary } from "@/server/services/summary-service";
-import { formatDateInTimeZone } from "@/server/services/date-utils";
+import { requireUser } from "@/backend/services/auth-service";
+import { getDailySummary } from "@/backend/services/summary-service";
+import { formatDateInTimeZone } from "@/backend/services/date-utils";
 
 export async function GET(request: Request) {
   try {

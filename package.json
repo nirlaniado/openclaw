@@ -8,6 +8,8 @@
     "build": "corepack pnpm --filter web build",
     "lint": "corepack pnpm --filter web lint",
     "typecheck": "corepack pnpm --filter web typecheck",
-    "test": "corepack pnpm --filter web test"
+    "test": "corepack pnpm --filter web test",
+    "test:frontend": "corepack pnpm --filter web test:frontend",
+    "test:backend": "corepack pnpm --filter web test:backend"
   }
 }

@@ -12,7 +12,7 @@ Scope: pre-VM only. The current app is a pnpm workspace with a Next.js web app i
 
 ## Required Checks
 
-GitHub Actions runs `.github/workflows/nutrition-app-ci.yml` on PRs and on pushes to `main` when app, shared package, workspace, CI, or workflow files change.
+Nir has currently removed the live GitHub Actions workflow, so this file describes the intended pre-VM gates that should become blocking again when CI is reintroduced.
 
 Blocking checks:
 
@@ -65,6 +65,5 @@ Block merge if any of these are true:
 
 ## Dependency And Security Scanning
 
-- Dependabot watches npm workspace dependencies and GitHub Actions weekly.
-- Dependency Review runs on PRs and is non-blocking during the foundation phase.
-- Promote Dependency Review to blocking before real user data or paid infrastructure is connected.
+- Reintroduce dependency and workflow scanning when CI is restored.
+- Keep dependency review non-blocking during the foundation phase, then promote it before real user data or paid infrastructure is connected.

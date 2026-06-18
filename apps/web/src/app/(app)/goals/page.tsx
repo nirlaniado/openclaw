@@ -1,6 +1,6 @@
-import { GoalsForm } from "@/components/goals/goals-form";
-import { requireUser } from "@/server/services/auth-service";
-import { getLatestGoalSet } from "@/server/services/goals-service";
+import { GoalsForm } from "@/frontend/components/goals/goals-form";
+import { requireUser } from "@/backend/services/auth-service";
+import { getLatestGoalSet } from "@/backend/services/goals-service";
 
 export default async function GoalsPage() {
   const user = await requireUser();

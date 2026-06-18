@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { requireUser } from "@/server/services/auth-service";
-import { listMealsForDate, logMeal } from "@/server/services/meal-log-service";
-import type { MealRecord } from "@/server/contracts/meals";
-import { formatDateInTimeZone } from "@/server/services/date-utils";
+import { requireUser } from "@/backend/services/auth-service";
+import { listMealsForDate, logMeal } from "@/backend/services/meal-log-service";
+import type { MealRecord } from "@/backend/contracts/meals";
+import { formatDateInTimeZone } from "@/backend/services/date-utils";
 
 export async function GET(request: Request) {
   try {
