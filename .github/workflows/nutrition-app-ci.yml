@@ -9,6 +9,7 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - "tsconfig.base.json"
+      - "infra/ci/**"
       - ".github/workflows/nutrition-app-ci.yml"
   push:
     branches:
@@ -20,27 +21,41 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - "tsconfig.base.json"
+      - "infra/ci/**"
       - ".github/workflows/nutrition-app-ci.yml"
 
+permissions:
+  contents: read
+  pull-requests: read
+
+env:
+  NEXT_PUBLIC_APP_NAME: Nutrition Tracker
+  NEXT_PUBLIC_SITE_URL: http://localhost:3000
+  NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-anon-key
+  LLM_PROVIDER: stub
+  LOG_LEVEL: info
+
 jobs:
-  verify:
+  app-checks:
+    name: Lint, typecheck, test, and build
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: "pnpm"
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.12.1
+      - name: Enable pnpm
+        run: corepack prepare pnpm@10.12.1 --activate
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: corepack pnpm install --frozen-lockfile
 
       - name: Lint
         run: corepack pnpm lint
@@ -50,3 +65,20 @@ jobs:
 
       - name: Test
         run: corepack pnpm test
+
+      - name: Build
+        run: corepack pnpm build
+
+  dependency-review:
+    name: Dependency review
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@v4
+        continue-on-error: true

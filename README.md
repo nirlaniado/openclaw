@@ -12,6 +12,7 @@ Pre-VM foundation for a portable nutrition tracking app built with:
 - `apps/web`: Next.js app shell, routes, server actions, API endpoints
 - `packages/shared`: shared contracts, types, DTOs, and constants
 - `docs/architecture`: app structure, data model, service boundaries, MVP screens
+- `docs/security`: public-demo gate, PR checklist, and environment guidance
 - `infra/ci`: CI notes/placeholders
 - `infra/docker`: container placeholders for later
 - `infra/k8s`: Kubernetes placeholders for later
@@ -50,3 +51,6 @@ Still worth adding later:
 - authenticated end-to-end API tests
 - UI interaction tests for the dashboard, forms, and summary views
 - USDA live API contract tests behind controlled fixtures
+## Security gate
+
+Before sharing a public demo URL, complete `docs/security/public-demo-baseline.md` and `docs/security/pr-checklist.md`.
