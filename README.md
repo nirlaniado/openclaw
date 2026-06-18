@@ -12,6 +12,7 @@ Pre-VM foundation for a portable nutrition tracking app built with:
 - `apps/web`: Next.js app shell, routes, server actions, API endpoints
 - `packages/shared`: shared contracts, types, DTOs, and constants
 - `docs/architecture`: app structure, data model, service boundaries, MVP screens
+- `docs/security`: public-demo gate, PR checklist, and environment guidance
 - `infra/ci`: CI notes/placeholders
 - `infra/docker`: container placeholders for later
 - `infra/k8s`: Kubernetes placeholders for later
@@ -27,3 +28,7 @@ This repo is intentionally focused on design and app foundation:
 - Sprint 1 implementation order
 
 Deep feature implementation comes next after the foundation is approved.
+
+## Security gate
+
+Before sharing a public demo URL, complete `docs/security/public-demo-baseline.md` and `docs/security/pr-checklist.md`.
