@@ -36,6 +36,28 @@ corepack pnpm dev
 
 Open `http://localhost:3000`.
 
+## Frontend Image Path
+
+The frontend is now structured so `apps/web` can become its own deployable image later instead of being coupled to the rest of the monorepo runtime.
+
+What makes that possible:
+
+- `apps/web/next.config.mjs` emits Next standalone output
+- output file tracing is rooted at the workspace root so shared workspace code is bundled correctly
+- `apps/web/Dockerfile` builds only the web app runtime image from the current workspace
+- the runtime stays env-driven, which keeps container startup separate from local dev state
+
+Build the frontend image from the repo root:
+
+```bash
+docker build -f apps/web/Dockerfile .
+```
+
+Why this is still pre-VM:
+
+- the image path is for the frontend app boundary only
+- Supabase, USDA, and future private backend dependencies still enter through env/config rather than baked-in local services
+
 ## Check Commands
 
 These are the same gates used by CI:
@@ -94,6 +116,7 @@ Implemented now:
 - meal logging UI connected to the current `/api/meals` flow
 - a date-aware daily dashboard backed by saved meals and daily summary math
 - weekly and monthly summary screens backed by persisted daily summaries
+- a standalone build and Docker path for the web frontend as a separate image later
 - test and CI verification baselines for the current backend and routing contracts
 
 Still intentionally incomplete:
