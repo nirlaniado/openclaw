@@ -59,15 +59,16 @@ export function MealForm({ defaults }: MealFormProps) {
           setMessage("Meal logged and daily summary recomputed.");
         });
       }}
-      style={{ display: "grid", gap: 18, marginTop: 24 }}
+      className="form-shell"
+      style={{ marginTop: 24 }}
     >
-      <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        <label style={{ display: "grid", gap: 8 }}>
+      <div className="field-grid">
+        <label className="field">
           <span>Meal type</span>
           <select
             value={form.mealType}
             onChange={(event) => setForm((current) => ({ ...current, mealType: event.target.value as MealType }))}
-            style={fieldStyle}
+            className="field-control"
           >
             <option value="breakfast">Breakfast</option>
             <option value="lunch">Lunch</option>
@@ -76,27 +77,27 @@ export function MealForm({ defaults }: MealFormProps) {
             <option value="other">Other</option>
           </select>
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Eaten at</span>
           <input
             type="datetime-local"
             value={form.eatenAt}
             onChange={(event) => setForm((current) => ({ ...current, eatenAt: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Timezone</span>
           <input
             value={form.timezone}
             onChange={(event) => setForm((current) => ({ ...current, timezone: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
       </div>
-      <label style={{ display: "grid", gap: 8 }}>
+      <label className="field">
         <span>Meal description</span>
         <textarea
           value={form.mealText}
@@ -104,15 +105,15 @@ export function MealForm({ defaults }: MealFormProps) {
           placeholder="Example: 2 eggs, greek yogurt, banana"
           required
           rows={6}
-          style={{ ...fieldStyle, resize: "vertical", minHeight: 140 }}
+          className="field-control textarea-control"
         />
       </label>
-      <button type="submit" disabled={isPending} style={buttonStyle}>
+      <button type="submit" disabled={isPending} className="button">
         {isPending ? "Logging..." : "Log meal"}
       </button>
-      {message ? <p style={{ margin: 0, color: "var(--accent-strong)" }}>{message}</p> : null}
+      {message ? <p className="success-note" style={{ margin: 0 }}>{message}</p> : null}
       {warnings.length > 0 ? (
-        <div style={noticeStyle}>
+        <div className="notice">
           <strong>Parser notes</strong>
           <ul style={{ margin: "8px 0 0", paddingLeft: 18 }}>
             {warnings.map((warning) => (
@@ -121,19 +122,19 @@ export function MealForm({ defaults }: MealFormProps) {
           </ul>
         </div>
       ) : null}
-      {error ? <p style={{ margin: 0, color: "#9f2d21" }}>{error}</p> : null}
+      {error ? <p className="error-note" style={{ margin: 0 }}>{error}</p> : null}
       {loggedMeal ? (
-        <section style={{ border: "1px solid var(--line)", borderRadius: 16, padding: 18, display: "grid", gap: 12 }}>
+        <section className="timeline-item">
           <div>
-            <p style={{ margin: 0, color: "var(--warm)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <p className="eyebrow">
               Latest meal
             </p>
             <h2 style={{ margin: "8px 0 0" }}>{loggedMeal.mealType}</h2>
           </div>
           <p style={{ margin: 0, color: "var(--muted)" }}>{loggedMeal.mealText}</p>
-          <div style={{ display: "grid", gap: 10 }}>
+          <div className="stack-sm">
             {loggedMeal.items.map((item) => (
-              <div key={item.id} style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+              <div key={item.id} className="timeline-row">
                 <div>
                   <strong>{item.description}</strong>
                   <p style={{ margin: "4px 0 0", color: "var(--muted)" }}>{item.quantityText ?? item.sourceRef}</p>
@@ -149,28 +150,3 @@ export function MealForm({ defaults }: MealFormProps) {
     </form>
   );
 }
-
-const fieldStyle = {
-  padding: "14px 16px",
-  borderRadius: 14,
-  border: "1px solid var(--line)",
-  background: "rgba(255,255,255,0.8)",
-  font: "inherit"
-} as const;
-
-const buttonStyle = {
-  padding: "14px 18px",
-  borderRadius: 999,
-  border: 0,
-  background: "var(--accent)",
-  color: "#fff",
-  font: "inherit",
-  cursor: "pointer"
-} as const;
-
-const noticeStyle = {
-  borderRadius: 16,
-  padding: 16,
-  background: "rgba(209, 127, 50, 0.12)",
-  border: "1px solid rgba(209, 127, 50, 0.28)"
-} as const;

@@ -62,10 +62,11 @@ export function GoalsForm({ goalSet }: GoalsFormProps) {
           setMessage("Goals saved.");
         });
       }}
-      style={{ display: "grid", gap: 16, marginTop: 24 }}
+      className="form-shell"
+      style={{ marginTop: 24 }}
     >
-      <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        <label style={{ display: "grid", gap: 8 }}>
+      <div className="field-grid">
+        <label className="field">
           <span>Calories target</span>
           <input
             type="number"
@@ -73,10 +74,10 @@ export function GoalsForm({ goalSet }: GoalsFormProps) {
             value={form.calorieTarget}
             onChange={(event) => setForm((current) => ({ ...current, calorieTarget: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Protein target (g)</span>
           <input
             type="number"
@@ -85,10 +86,10 @@ export function GoalsForm({ goalSet }: GoalsFormProps) {
             value={form.proteinGramsTarget}
             onChange={(event) => setForm((current) => ({ ...current, proteinGramsTarget: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Carbs target (g)</span>
           <input
             type="number"
@@ -97,10 +98,10 @@ export function GoalsForm({ goalSet }: GoalsFormProps) {
             value={form.carbsGramsTarget}
             onChange={(event) => setForm((current) => ({ ...current, carbsGramsTarget: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Fat target (g)</span>
           <input
             type="number"
@@ -109,43 +110,25 @@ export function GoalsForm({ goalSet }: GoalsFormProps) {
             value={form.fatGramsTarget}
             onChange={(event) => setForm((current) => ({ ...current, fatGramsTarget: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Effective from</span>
           <input
             type="date"
             value={form.effectiveFrom}
             onChange={(event) => setForm((current) => ({ ...current, effectiveFrom: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
       </div>
-      <button type="submit" disabled={isPending} style={buttonStyle}>
+      <button type="submit" disabled={isPending} className="button">
         {isPending ? "Saving..." : "Save goals"}
       </button>
-      {message ? <p style={{ margin: 0, color: "var(--accent-strong)" }}>{message}</p> : null}
-      {error ? <p style={{ margin: 0, color: "#9f2d21" }}>{error}</p> : null}
+      {message ? <p className="success-note" style={{ margin: 0 }}>{message}</p> : null}
+      {error ? <p className="error-note" style={{ margin: 0 }}>{error}</p> : null}
     </form>
   );
 }
-
-const fieldStyle = {
-  padding: "14px 16px",
-  borderRadius: 14,
-  border: "1px solid var(--line)",
-  background: "rgba(255,255,255,0.8)",
-  font: "inherit"
-} as const;
-
-const buttonStyle = {
-  padding: "14px 18px",
-  borderRadius: 999,
-  border: 0,
-  background: "var(--accent)",
-  color: "#fff",
-  font: "inherit",
-  cursor: "pointer"
-} as const;

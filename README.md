@@ -19,20 +19,51 @@ Pre-VM foundation for a portable nutrition tracking app built with:
 
 ## Current phase
 
-This repo is intentionally focused on design and app foundation:
+This repo is still pre-VM, but it is no longer just an architecture shell.
 
-- app folder structure
-- data model proposal
-- API and service boundary proposal
-- screen map for MVP
-- Sprint 1 implementation order
+Implemented now:
 
-Deep feature implementation comes next after the foundation is approved.
+- Supabase-backed auth entry and protected app routes
+- real profile and goals forms that persist through the current service layer
+- meal logging UI connected to the current `/api/meals` flow
+- a date-aware daily dashboard backed by saved meals and daily summary math
+- weekly and monthly summary screens backed by persisted daily summaries
+- test and CI verification baselines for the current backend and routing contracts
+
+Still intentionally incomplete:
+
+- meal review/edit correction after the first USDA match
+- live Supabase integration tests and end-to-end UI tests
+- VM-era private backend split for richer LLM-assisted parsing
+- production deployment infrastructure beyond pre-VM guidance and CI
+
+## Run the web app
+
+- `corepack pnpm install`
+- `corepack pnpm dev`
+- open `apps/web` through the default Next.js dev server started by the root script
+
+## Key environment variables
+
+Frontend and backend flows depend on:
+
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY` for service-role workflows when needed later
+- `USDA_API_KEY` for live USDA FoodData Central lookup; without it, the app falls back to the local demo food catalog
+
+Why this matters:
+
+- auth redirects and magic-link return paths need the site URL
+- the current protected frontend uses Supabase auth and server-side user resolution
+- meal logging quality improves with the live USDA key, but the app remains usable in pre-VM/demo mode without it
 
 ## Test baseline
 
 Current verification commands:
 
+- `corepack pnpm build`
 - `corepack pnpm lint`
 - `corepack pnpm typecheck`
 - `corepack pnpm test`
@@ -51,6 +82,7 @@ Still worth adding later:
 - authenticated end-to-end API tests
 - UI interaction tests for the dashboard, forms, and summary views
 - USDA live API contract tests behind controlled fixtures
+
 ## Security gate
 
 Before sharing a public demo URL, complete `docs/security/public-demo-baseline.md` and `docs/security/pr-checklist.md`.

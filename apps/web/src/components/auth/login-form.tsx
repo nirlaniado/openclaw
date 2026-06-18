@@ -42,9 +42,10 @@ export function LoginForm({ appUrl, errorMessage }: LoginFormProps) {
           setEmail("");
         });
       }}
-      style={{ display: "grid", gap: 16, marginTop: 24 }}
+      className="form-shell"
+      style={{ marginTop: 24 }}
     >
-      <label style={{ display: "grid", gap: 8 }}>
+      <label className="field">
         <span>Email</span>
         <input
           type="email"
@@ -52,32 +53,14 @@ export function LoginForm({ appUrl, errorMessage }: LoginFormProps) {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="you@example.com"
-          style={{
-            padding: "14px 16px",
-            borderRadius: 14,
-            border: "1px solid var(--line)",
-            background: "rgba(255,255,255,0.8)",
-            font: "inherit"
-          }}
+          className="field-control"
         />
       </label>
-      <button
-        type="submit"
-        disabled={isPending}
-        style={{
-          padding: "14px 18px",
-          borderRadius: 999,
-          border: 0,
-          background: "var(--accent)",
-          color: "#fff",
-          font: "inherit",
-          cursor: isPending ? "progress" : "pointer"
-        }}
-      >
+      <button type="submit" disabled={isPending} className="button" style={{ cursor: isPending ? "progress" : "pointer" }}>
         {isPending ? "Sending..." : "Send magic link"}
       </button>
-      {notice ? <p style={{ margin: 0, color: "var(--accent-strong)" }}>{notice}</p> : null}
-      {error ? <p style={{ margin: 0, color: "#9f2d21" }}>{error}</p> : null}
+      {notice ? <p className="success-note" style={{ margin: 0 }}>{notice}</p> : null}
+      {error ? <p className="error-note" style={{ margin: 0 }}>{error}</p> : null}
     </form>
   );
 }
