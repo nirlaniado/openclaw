@@ -29,6 +29,28 @@ This repo is intentionally focused on design and app foundation:
 
 Deep feature implementation comes next after the foundation is approved.
 
+## Test baseline
+
+Current verification commands:
+
+- `corepack pnpm lint`
+- `corepack pnpm typecheck`
+- `corepack pnpm test`
+
+Current coverage is intentionally focused on stable app behavior that should block obviously broken commits:
+
+- profile and goals validation plus service branching behavior
+- meal parsing and meal logging contracts
+- daily, weekly, and monthly summary aggregation behavior
+- API route normalization and service delegation for meal logging and daily summary reads
+- date and range utilities that drive summary windows
+
+Still worth adding later:
+
+- repository tests against a real Supabase test database
+- authenticated end-to-end API tests
+- UI interaction tests for the dashboard, forms, and summary views
+- USDA live API contract tests behind controlled fixtures
 ## Security gate
 
 Before sharing a public demo URL, complete `docs/security/public-demo-baseline.md` and `docs/security/pr-checklist.md`.
