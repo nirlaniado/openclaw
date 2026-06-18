@@ -134,6 +134,11 @@ Current verification commands:
 - `corepack pnpm typecheck`
 - `corepack pnpm test`
 
+Why `typecheck` is wired this way:
+
+- the web package generates Next route/layout types before running `tsc`
+- CI should not depend on a previous build having already created `.next/types`
+
 Current coverage is intentionally focused on stable app behavior that should block obviously broken commits:
 
 - profile and goals validation plus service branching behavior
