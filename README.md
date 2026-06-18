@@ -14,7 +14,8 @@ The app is built with:
 - `apps/web`: Next.js app shell, routes, server actions, API endpoints, Supabase migrations
 - `packages/shared`: shared contracts, types, DTOs, and constants
 - `docs/architecture`: app structure, data model, service boundaries, MVP screens
-- `infra/ci`: CI gates, PR flow, preview expectations, secrets, and merge blockers
+- `docs/security`: public-demo gate, PR checklist, and environment guidance
+- `infra/ci`: CI notes/placeholders
 - `infra/docker`: container placeholders for later
 - `infra/k8s`: Kubernetes placeholders for later
 
@@ -95,9 +96,28 @@ This repo is focused on app foundation:
 
 Deep feature implementation comes next after the foundation is approved.
 
-## Known Gaps
+## Test baseline
 
-- No persistent preview deployment exists yet; PR preview is local-only.
-- Dependency Review is non-blocking until real user data or paid infrastructure is connected.
-- `next lint` currently passes but is deprecated upstream and should move to the ESLint CLI before Next.js 16.
-- VM deployment, Docker hardening, and Kubernetes flow remain placeholders for later phases.
+Current verification commands:
+
+- `corepack pnpm lint`
+- `corepack pnpm typecheck`
+- `corepack pnpm test`
+
+Current coverage is intentionally focused on stable app behavior that should block obviously broken commits:
+
+- profile and goals validation plus service branching behavior
+- meal parsing and meal logging contracts
+- daily, weekly, and monthly summary aggregation behavior
+- API route normalization and service delegation for meal logging and daily summary reads
+- date and range utilities that drive summary windows
+
+Still worth adding later:
+
+- repository tests against a real Supabase test database
+- authenticated end-to-end API tests
+- UI interaction tests for the dashboard, forms, and summary views
+- USDA live API contract tests behind controlled fixtures
+## Security gate
+
+Before sharing a public demo URL, complete `docs/security/public-demo-baseline.md` and `docs/security/pr-checklist.md`.
