@@ -65,3 +65,17 @@ Later VM split:
 - a private backend fronts Ollama
 - Next.js app calls that backend through the same `LLMAdapter` contract
 - summary and nutrition math stay in app/backend services, not in Ollama
+
+## 4. Frontend shape now
+
+The current web frontend is intentionally built on top of the same app structure rather than introducing a separate frontend stack.
+
+- route groups still separate public auth screens from authenticated app screens
+- the dashboard, profile, goals, meal logging, weekly summary, and monthly summary pages are real app screens now
+- page rendering stays server-first where it depends on current user or summary data
+- client components are mainly used for forms, optimistic UI messages, and active navigation state
+
+Why keep it this way in pre-VM:
+
+- the repo already centralizes business logic in services and route handlers, so frontend work should expose that logic instead of duplicating it
+- keeping summary and logging flows server-backed makes later VM extraction safer because the frontend surface can remain stable while internals move

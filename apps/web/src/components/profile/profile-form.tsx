@@ -68,19 +68,20 @@ export function ProfileForm({ profile }: ProfileFormProps) {
           setMessage("Profile saved.");
         });
       }}
-      style={{ display: "grid", gap: 16, marginTop: 24 }}
+      className="form-shell"
+      style={{ marginTop: 24 }}
     >
-      <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        <label style={{ display: "grid", gap: 8 }}>
+      <div className="field-grid">
+        <label className="field">
           <span>Display name</span>
           <input
             value={form.displayName}
             onChange={(event) => setForm((current) => ({ ...current, displayName: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Age</span>
           <input
             type="number"
@@ -89,15 +90,15 @@ export function ProfileForm({ profile }: ProfileFormProps) {
             value={form.age}
             onChange={(event) => setForm((current) => ({ ...current, age: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Sex</span>
           <select
             value={form.sex}
             onChange={(event) => setForm((current) => ({ ...current, sex: event.target.value as typeof current.sex }))}
-            style={fieldStyle}
+            className="field-control"
           >
             <option value="female">Female</option>
             <option value="male">Male</option>
@@ -105,7 +106,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
             <option value="prefer_not_to_say">Prefer not to say</option>
           </select>
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Height (cm)</span>
           <input
             type="number"
@@ -114,10 +115,10 @@ export function ProfileForm({ profile }: ProfileFormProps) {
             value={form.heightCm}
             onChange={(event) => setForm((current) => ({ ...current, heightCm: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Weight (kg)</span>
           <input
             type="number"
@@ -126,55 +127,37 @@ export function ProfileForm({ profile }: ProfileFormProps) {
             value={form.weightKg}
             onChange={(event) => setForm((current) => ({ ...current, weightKg: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Timezone</span>
           <input
             value={form.timezone}
             onChange={(event) => setForm((current) => ({ ...current, timezone: event.target.value }))}
             required
-            style={fieldStyle}
+            className="field-control"
           />
         </label>
-        <label style={{ display: "grid", gap: 8 }}>
+        <label className="field">
           <span>Preferred units</span>
           <select
             value={form.preferredUnits}
             onChange={(event) =>
               setForm((current) => ({ ...current, preferredUnits: event.target.value as typeof current.preferredUnits }))
             }
-            style={fieldStyle}
+            className="field-control"
           >
             <option value="metric">Metric</option>
             <option value="imperial">Imperial</option>
           </select>
         </label>
       </div>
-      <button type="submit" disabled={isPending} style={buttonStyle}>
+      <button type="submit" disabled={isPending} className="button">
         {isPending ? "Saving..." : "Save profile"}
       </button>
-      {message ? <p style={{ margin: 0, color: "var(--accent-strong)" }}>{message}</p> : null}
-      {error ? <p style={{ margin: 0, color: "#9f2d21" }}>{error}</p> : null}
+      {message ? <p className="success-note" style={{ margin: 0 }}>{message}</p> : null}
+      {error ? <p className="error-note" style={{ margin: 0 }}>{error}</p> : null}
     </form>
   );
 }
-
-const fieldStyle = {
-  padding: "14px 16px",
-  borderRadius: 14,
-  border: "1px solid var(--line)",
-  background: "rgba(255,255,255,0.8)",
-  font: "inherit"
-} as const;
-
-const buttonStyle = {
-  padding: "14px 18px",
-  borderRadius: 999,
-  border: 0,
-  background: "var(--accent)",
-  color: "#fff",
-  font: "inherit",
-  cursor: "pointer"
-} as const;
