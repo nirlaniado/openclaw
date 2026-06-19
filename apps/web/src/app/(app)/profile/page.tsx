@@ -1,6 +1,6 @@
-import { ProfileForm } from "@/components/profile/profile-form";
-import { requireUser } from "@/server/services/auth-service";
-import { getOrCreateProfile } from "@/server/services/profile-service";
+import { ProfileForm } from "@/frontend/components/profile/profile-form";
+import { requireUser } from "@/backend/services/auth-service";
+import { getOrCreateProfile } from "@/backend/services/profile-service";
 
 export default async function ProfilePage() {
   const user = await requireUser();

@@ -7,8 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "next typegen && tsc --noEmit",
-    "test": "vitest run"
+    "typecheck": "rm -f tsconfig.tsbuildinfo && next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "test:frontend": "vitest run src/tests/frontend",
+    "test:backend": "vitest run src/tests/backend"
   },
   "dependencies": {
     "@nutrition/shared": "workspace:*",
@@ -23,6 +25,7 @@
     "@types/node": "^22.15.21",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^6.0.2",
     "eslint": "^9.27.0",
     "eslint-config-next": "^15.3.3",
     "typescript": "^6.0.3",

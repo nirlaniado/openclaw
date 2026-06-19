@@ -1,8 +1,8 @@
-import { SummaryRangePanel } from "@/components/summary/summary-range-panel";
-import { requireUser } from "@/server/services/auth-service";
-import { addDays, formatDateInTimeZone, startOfWeek } from "@/server/services/date-utils";
-import { getOrCreateProfile } from "@/server/services/profile-service";
-import { getWeeklySummary } from "@/server/services/summary-service";
+import { SummaryRangePanel } from "@/frontend/components/summary/summary-range-panel";
+import { requireUser } from "@/backend/services/auth-service";
+import { addDays, formatDateInTimeZone, startOfWeek } from "@/backend/services/date-utils";
+import { getOrCreateProfile } from "@/backend/services/profile-service";
+import { getWeeklySummary } from "@/backend/services/summary-service";
 import Link from "next/link";
 
 type WeeklySummaryPageProps = {

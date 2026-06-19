@@ -1,7 +1,7 @@
-import { MealForm } from "@/components/meals/meal-form";
-import { requireUser } from "@/server/services/auth-service";
-import { getOrCreateProfile } from "@/server/services/profile-service";
-import { buildMealFormDefaults } from "@/server/services/meal-log-service";
+import { MealForm } from "@/frontend/components/meals/meal-form";
+import { requireUser } from "@/backend/services/auth-service";
+import { getOrCreateProfile } from "@/backend/services/profile-service";
+import { buildMealFormDefaults } from "@/backend/services/meal-log-service";
 
 export default async function NewMealPage() {
   const user = await requireUser();

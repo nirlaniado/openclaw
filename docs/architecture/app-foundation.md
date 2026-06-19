@@ -20,17 +20,23 @@ apps/
           summary/weekly
           summary/monthly
           webhooks/auth
-      lib/
-        config
-        supabase
-      server/
+      frontend/
+        components/
+        lib/
+      backend/
         adapters/
           ollama
           usda
         contracts
+        lib
         repositories
         services
         validation
+      shared/
+        config
+      tests/
+        frontend/
+        backend/
 packages/
   shared/
 docs/
@@ -45,7 +51,11 @@ infra/
 
 - keep all config env-driven
 - use Next.js for UI plus server endpoints in the pre-VM phase
+- keep `src/app` as the integration boundary, not the place where business logic accumulates
+- keep reusable UI/browser code under `src/frontend`
 - keep DB access behind repository and service boundaries
+- keep server-side app logic under `src/backend`
+- keep truly cross-boundary runtime config under `src/shared`
 - keep USDA behind one adapter client
 - keep Ollama behind one adapter interface with a no-op implementation for now
 - keep all macro calculations in deterministic service code, never in the LLM path
@@ -74,8 +84,21 @@ The current web frontend is intentionally built on top of the same app structure
 - the dashboard, profile, goals, meal logging, weekly summary, and monthly summary pages are real app screens now
 - page rendering stays server-first where it depends on current user or summary data
 - client components are mainly used for forms, optimistic UI messages, and active navigation state
+- reusable components and browser helpers now live under `src/frontend`, which keeps the UI surface easier to target for later frontend-only checks
 
 Why keep it this way in pre-VM:
 
 - the repo already centralizes business logic in services and route handlers, so frontend work should expose that logic instead of duplicating it
 - keeping summary and logging flows server-backed makes later VM extraction safer because the frontend surface can remain stable while internals move
+
+## 5. Test layout now
+
+Tests are split by the side they protect instead of by whichever source file happened to exist first.
+
+- `src/tests/frontend`: UI-facing tests
+- `src/tests/backend`: API, contract, service, and server-side helper tests
+
+Why this helps:
+
+- future CI can run frontend and backend checks as separate jobs without needing a bigger repo split first
+- it keeps server tests close to the real backend boundary even though the code still lives inside a Next app package

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { Route } from "next";
-import { AppNav } from "@/components/app/app-nav";
-import { LogoutButton } from "@/components/auth/logout-button";
-import { requireUser } from "@/server/services/auth-service";
+import { AppNav } from "@/frontend/components/app/app-nav";
+import { LogoutButton } from "@/frontend/components/auth/logout-button";
+import { requireUser } from "@/backend/services/auth-service";
 
 const links = [
   { href: "/dashboard", label: "Dashboard" },

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { LoginForm } from "@/components/auth/login-form";
-import { env } from "@/lib/config/env";
-import { getCurrentUser } from "@/server/services/auth-service";
+import { LoginForm } from "@/frontend/components/auth/login-form";
+import { env } from "@/shared/config/env";
+import { getCurrentUser } from "@/backend/services/auth-service";
 
 type LoginPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;

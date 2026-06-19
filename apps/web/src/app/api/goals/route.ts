@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { requireUser } from "@/server/services/auth-service";
-import { getLatestGoalSet, upsertGoalSet } from "@/server/services/goals-service";
+import { requireUser } from "@/backend/services/auth-service";
+import { getLatestGoalSet, upsertGoalSet } from "@/backend/services/goals-service";
 
 export async function GET() {
   try {

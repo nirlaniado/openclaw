@@ -36,6 +36,23 @@ corepack pnpm dev
 
 Open `http://localhost:3000`.
 
+## App Structure
+
+The current app stays in one Next.js package, but the code is now organized around clearer boundaries:
+
+- `apps/web/src/app`: Next.js entrypoints and route integration layer
+- `apps/web/src/frontend`: reusable UI components and browser-facing helpers
+- `apps/web/src/backend`: contracts, adapters, repositories, services, and server-only helpers
+- `apps/web/src/shared`: cross-boundary runtime config used by both sides
+- `apps/web/src/tests/frontend`: frontend-facing tests
+- `apps/web/src/tests/backend`: backend-facing tests
+
+Why this helps later CI/CD:
+
+- frontend and backend tests can run as separate jobs without splitting the repo into artificial microservices
+- Next app routes remain the thin integration boundary between UI and backend logic
+- the future app image path stays focused on `apps/web` while backend logic stays easy to target with separate test commands
+
 ## Frontend Image Path
 
 The frontend is now structured so `apps/web` can become its own deployable image later instead of being coupled to the rest of the monorepo runtime.
@@ -69,9 +86,16 @@ corepack pnpm test
 corepack pnpm build
 ```
 
+Side-specific test commands:
+
+```bash
+corepack pnpm test:frontend
+corepack pnpm test:backend
+```
+
 ## Key Environment Variables
 
-The app validates configuration in `apps/web/src/lib/config/env.ts`.
+The app validates configuration in `apps/web/src/shared/config/env.ts`.
 
 Required for local app behavior:
 
@@ -93,7 +117,9 @@ CI uses non-secret placeholder values for public env vars and `LLM_PROVIDER=stub
 
 ## CI/CD Status
 
-GitHub Actions runs the pre-VM CI gates on app, package, workspace, and CI changes:
+The repo is now structured so future CI can run the pre-VM gates cleanly, even though Nir has currently removed the live GitHub Actions workflow.
+
+Intended blocking gates:
 
 - install
 - lint
@@ -101,9 +127,9 @@ GitHub Actions runs the pre-VM CI gates on app, package, workspace, and CI chang
 - tests
 - production build
 
-Dependency Review is enabled for PRs as a non-blocking foundation-phase signal. Dependabot checks npm workspace dependencies and GitHub Actions weekly.
+The new frontend/backend test split is meant to make later CI jobs easier to wire without forcing a bigger repo breakup first.
 
-See `infra/ci/README.md` for branch flow, PR expectations, preview rules, secret handling, and v1 merge blockers.
+See `infra/ci/README.md` for the intended branch flow, check commands, preview expectations, and merge blockers once CI is reintroduced.
 
 ## Current Phase
 
@@ -118,6 +144,7 @@ Implemented now:
 - weekly and monthly summary screens backed by persisted daily summaries
 - a standalone build and Docker path for the web frontend as a separate image later
 - test and CI verification baselines for the current backend and routing contracts
+- clearer frontend/backend/shared/test boundaries inside the web app package
 
 Still intentionally incomplete:
 
@@ -156,6 +183,8 @@ Current verification commands:
 - `corepack pnpm lint`
 - `corepack pnpm typecheck`
 - `corepack pnpm test`
+- `corepack pnpm test:frontend`
+- `corepack pnpm test:backend`
 
 Why `typecheck` is wired this way:
 
@@ -164,6 +193,7 @@ Why `typecheck` is wired this way:
 
 Current coverage is intentionally focused on stable app behavior that should block obviously broken commits:
 
+- frontend: summary-panel rendering over the current UI contract
 - profile and goals validation plus service branching behavior
 - meal parsing and meal logging contracts
 - daily, weekly, and monthly summary aggregation behavior

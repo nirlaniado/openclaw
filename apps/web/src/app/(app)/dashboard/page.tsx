@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { requireUser } from "@/server/services/auth-service";
-import { getLatestGoalSet } from "@/server/services/goals-service";
-import { getOrCreateProfile } from "@/server/services/profile-service";
-import { addDays, formatDateInTimeZone } from "@/server/services/date-utils";
-import { listMealsForDate } from "@/server/services/meal-log-service";
-import { getDailySummary } from "@/server/services/summary-service";
+import { requireUser } from "@/backend/services/auth-service";
+import { getLatestGoalSet } from "@/backend/services/goals-service";
+import { getOrCreateProfile } from "@/backend/services/profile-service";
+import { addDays, formatDateInTimeZone } from "@/backend/services/date-utils";
+import { listMealsForDate } from "@/backend/services/meal-log-service";
+import { getDailySummary } from "@/backend/services/summary-service";
 
 type DashboardPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
