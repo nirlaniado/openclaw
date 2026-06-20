@@ -1,6 +1,6 @@
 import type { User } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/backend/lib/supabase-server";
-import { NoopLLMAdapter } from "@/backend/adapters/ollama/llm-adapter";
+import { createLLMAdapter } from "@/backend/adapters/ollama/llm-adapter-factory";
 import { createUSDANutritionClient } from "@/backend/adapters/usda/usda-client";
 import { type MealCreateInput, mealCreateSchema, type MealRecord } from "@/backend/contracts/meals";
 import { getActiveGoalSet } from "@/backend/services/goals-service";
@@ -18,7 +18,7 @@ type LoggedMealResult = {
   warnings: string[];
 };
 
-const llmAdapter = new NoopLLMAdapter();
+const llmAdapter = createLLMAdapter();
 
 export async function logMeal(user: User, input: MealCreateInput): Promise<LoggedMealResult> {
   const validated = mealCreateSchema.parse(input);

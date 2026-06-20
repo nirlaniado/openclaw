@@ -6,7 +6,9 @@ const appDir = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typedRoutes: true,
-  output: "standalone",
+  // Standalone output is only needed for the self-hosted Docker image.
+  // On Vercel we leave it unset so the platform uses its native build output.
+  ...(process.env.BUILD_STANDALONE === "true" ? { output: "standalone" } : {}),
   outputFileTracingRoot: path.join(appDir, "../.."),
   async headers() {
     return [

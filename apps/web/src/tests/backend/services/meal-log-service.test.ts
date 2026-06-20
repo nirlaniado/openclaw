@@ -27,12 +27,8 @@ vi.mock("@/backend/lib/supabase-server", () => ({
   createSupabaseServerClient: mocks.createSupabaseServerClient
 }));
 
-vi.mock("@/backend/adapters/ollama/llm-adapter", () => ({
-  NoopLLMAdapter: class {
-    constructor() {
-      return mocks.llmAdapter;
-    }
-  }
+vi.mock("@/backend/adapters/ollama/llm-adapter-factory", () => ({
+  createLLMAdapter: () => mocks.llmAdapter
 }));
 
 vi.mock("@/backend/adapters/usda/usda-client", () => ({

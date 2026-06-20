@@ -26,6 +26,7 @@ ENV NEXT_PUBLIC_SUPABASE_URL="http://localhost:54321"
 ENV NEXT_PUBLIC_SUPABASE_ANON_KEY="container-build-placeholder"
 ENV LLM_PROVIDER="stub"
 ENV LOG_LEVEL="info"
+ENV BUILD_STANDALONE="true"
 
 RUN pnpm --filter web build
 

@@ -1,0 +1,11 @@
+region        = "eu-north-1"
+instance_type = "t3.large"
+ollama_model  = "llama3.2:1b"
+
+# Optional: lock SSH to your IP (leave empty to disable SSH entirely).
+# ssh_cidr = "203.0.113.10/32"
+# key_name = "my-ec2-keypair"
+
+# Optional: set later to enable HTTPS via Caddy auto-TLS.
+# Point this domain's A record at the Elastic IP first.
+# domain = "ollama.your-domain.com"
